@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commissions — Akanori</title>
+  <meta name="description" content="Commission information and pricing for Akanori's digital art. Character design, illustrations, and fan art.">
+  <meta property="og:title" content="Commissions — Akanori">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header" id="site-header">
+    <div class="container">
+      <nav class="nav">
+        <a href="index.html" class="nav-logo" aria-label="Akanori — Home">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M16 2 L28 9 L28 23 L16 30 L4 23 L4 9 Z" stroke="currentColor" stroke-width="1" opacity="0.4" fill="none"/>
+            <path d="M16 9 L21 23 L16 20.5 L11 23 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" opacity="0.9"/>
+            <line x1="13" y1="18" x2="19" y2="18" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+            <path d="M4 9 L7 9 M4 9 L4 12" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <path d="M28 9 L25 9 M28 9 L28 12" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+          </svg>
+          <span class="nav-logo-text">Akanori</span>
+        </a>
+
+        <ul class="nav-links" id="nav-links" role="list">
+          <li><a href="index.html">Portfolio</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#socials">Find me</a></li>
+          <li><a href="commissions.html" class="active">Commissions</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="btn-theme" data-theme-toggle aria-label="Switch to light mode">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+          <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ====== HERO ====== -->
+    <section class="comm-hero">
+      <!-- BG hatch -->
+      <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(-55deg,transparent,transparent 40px,rgba(139,26,26,0.03) 40px,rgba(139,26,26,0.03) 41px);pointer-events:none;z-index:0;"></div>
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 50% 50%,rgba(120,10,10,0.25),transparent 70%);pointer-events:none;z-index:0;"></div>
+      <div class="container" style="position:relative;z-index:1;">
+        <div class="fade-up">
+          <div class="status-badge status-badge--open" style="margin:0 auto var(--space-6);display:inline-flex;">
+            <span class="dot"></span>
+            Commissions Open
+          </div>
+          <h1 class="comm-hero-title">
+            A piece made<br>just <em>for you</em>
+          </h1>
+          <p class="comm-hero-sub">
+            I take commissions for character illustrations, fan art, and
+            original designs. Everything is done digitally in Clip Studio Paint.
+            Prices are in EUR.
+          </p>
+          <a href="#contact" class="btn-primary" style="display:inline-flex;">Get in touch</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== TIERS ====== -->
+    <section class="comm-tiers">
+      <div class="container container--wide">
+        <div class="section-header fade-up">
+          <p class="section-eyebrow">Pricing</p>
+          <h2 class="section-title">Commission <em>Tiers</em></h2>
+          <p class="section-desc">All prices are starting rates. Complexity, backgrounds, and extra characters may affect the final price.</p>
+        </div>
+
+        <div class="comm-tiers-grid">
+
+          <div class="tier-card fade-up">
+            <p class="tier-label">Tier 01</p>
+            <h3 class="tier-name">Sketch</h3>
+            <div class="tier-price">from €15 <span>/ character</span></div>
+            <ul class="tier-features">
+              <li>Single character, bust or full body</li>
+              <li>Pencil-style linework, no color</li>
+              <li>Simple or no background</li>
+              <li>1 round of revisions</li>
+              <li>Delivered as PNG</li>
+            </ul>
+            <a href="#contact" class="btn-tier">Request a Sketch</a>
+          </div>
+
+          <div class="tier-card tier-card--featured fade-up">
+            <p class="tier-label">Tier 02 · Popular</p>
+            <h3 class="tier-name">Flat Color</h3>
+            <div class="tier-price">from €30 <span>/ character</span></div>
+            <ul class="tier-features">
+              <li>Single character, bust or full body</li>
+              <li>Clean lineart + flat colors</li>
+              <li>Simple color background or gradient</li>
+              <li>2 rounds of revisions</li>
+              <li>Delivered as PNG (high res)</li>
+            </ul>
+            <a href="#contact" class="btn-tier">Request Flat Color</a>
+          </div>
+
+          <div class="tier-card fade-up">
+            <p class="tier-label">Tier 03</p>
+            <h3 class="tier-name">Full Illustration</h3>
+            <div class="tier-price">from €60 <span>/ character</span></div>
+            <ul class="tier-features">
+              <li>Single character, any pose</li>
+              <li>Full rendering with shading &amp; lighting</li>
+              <li>Detailed background optional (+€20)</li>
+              <li>3 rounds of revisions</li>
+              <li>High-res PNG + optional PSD</li>
+            </ul>
+            <a href="#contact" class="btn-tier">Request Illustration</a>
+          </div>
+
+          <div class="tier-card fade-up">
+            <p class="tier-label">Tier 04</p>
+            <h3 class="tier-name">Reference Sheet</h3>
+            <div class="tier-price">from €50 <span>/ character</span></div>
+            <ul class="tier-features">
+              <li>Front + back view, flat colors</li>
+              <li>Color palette swatches included</li>
+              <li>Optional: expression sheet (+€15)</li>
+              <li>2 rounds of revisions</li>
+              <li>High-res PNG</li>
+            </ul>
+            <a href="#contact" class="btn-tier">Request Ref Sheet</a>
+          </div>
+
+        </div>
+
+        <p style="text-align:center;font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-8);letter-spacing:0.06em;">
+          * Additional characters: +50% per character. Prices may vary for high-complexity designs.
+        </p>
+      </div>
+    </section>
+
+    <!-- ====== INFO BLOCKS ====== -->
+    <section class="comm-info">
+      <div class="container">
+        <div class="section-header fade-up">
+          <p class="section-eyebrow">Before you order</p>
+          <h2 class="section-title">Good to <em>know</em></h2>
+        </div>
+        <div class="comm-info-grid">
+
+          <div class="comm-info-block fade-up">
+            <h3>What I draw</h3>
+            <ul>
+              <li>Original characters (OCs)</li>
+              <li>Fan art (anime, games, etc.)</li>
+              <li>Fandom ships &amp; group shots</li>
+              <li>Monsters, creatures &amp; fantasy beings</li>
+              <li>Gender-neutral &amp; non-binary characters</li>
+              <li>Mild romance / fluff</li>
+            </ul>
+          </div>
+
+          <div class="comm-info-block fade-up">
+            <h3>What I don't draw</h3>
+            <ul>
+              <li>NSFW / explicit content</li>
+              <li>Hateful or discriminatory content</li>
+              <li>Heavy gore or graphic violence</li>
+              <li>Real people (public figures)</li>
+              <li>NFTs or AI training datasets</li>
+            </ul>
+          </div>
+
+          <div class="comm-info-block fade-up">
+            <h3>How it works</h3>
+            <p>Send me a message with your idea, any reference images you have, and which tier you're interested in. I'll confirm if your request is something I can take on, give a final price quote, and we'll discuss details.</p>
+            <p style="margin-top:var(--space-3);">Payment is via PayPal. I require 50% upfront before starting, and the rest on completion.</p>
+          </div>
+
+          <div class="comm-info-block fade-up">
+            <h3>Usage rights</h3>
+            <p>Commissioned pieces are for personal use only. Commercial use, resale, or redistribution of the artwork (including as AI training data) is not permitted without explicit written agreement.</p>
+            <p style="margin-top:var(--space-3);">I retain the right to post the finished work in my portfolio and on my social media accounts.</p>
+          </div>
+
+          <div class="comm-info-block fade-up">
+            <h3>Turnaround</h3>
+            <ul>
+              <li>Sketch: 3–7 days</li>
+              <li>Flat Color: 7–14 days</li>
+              <li>Full Illustration: 2–4 weeks</li>
+              <li>Reference Sheet: 2–3 weeks</li>
+            </ul>
+            <p style="margin-top:var(--space-3);">Times may vary depending on current queue. I'll keep you updated throughout the process.</p>
+          </div>
+
+          <div class="comm-info-block fade-up">
+            <h3>Revisions</h3>
+            <p>Revisions are included as listed per tier. Major changes after the sketch phase (pose, design, composition) may require extra payment. Minor adjustments like color tweaks, expression changes, and small corrections are always included.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== CONTACT CTA ====== -->
+    <section class="comm-cta" id="contact">
+      <div class="container">
+        <div class="fade-up">
+          <p class="section-eyebrow" style="justify-content:center;">Get started</p>
+          <h2 class="comm-cta-title">Ready to <em>commission?</em></h2>
+          <p>The best way to reach me is via DM on Instagram or Tumblr. Include references, your idea, and which tier you're interested in.</p>
+          <div style="display:flex;gap:var(--space-4);justify-content:center;flex-wrap:wrap;margin-top:var(--space-8);">
+            <a href="https://www.instagram.com/akanori.art/" target="_blank" rel="noopener" class="btn-primary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              DM on Instagram
+            </a>
+            <a href="https://www.tumblr.com/blog/akanorired" target="_blank" rel="noopener" class="btn-ghost">
+              DM on Tumblr
+            </a>
+          </div>
+          <p style="margin-top:var(--space-8);font-size:var(--text-xs);color:var(--color-text-faint);letter-spacing:0.05em;">
+            Please allow up to 48 hours for a response.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="index.html" class="footer-logo">Akanori</a>
+        <div class="footer-links">
+          <a href="index.html">Portfolio</a>
+          <a href="commissions.html">Commissions</a>
+          <a href="https://www.instagram.com/akanori.art/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tumblr.com/blog/akanorired" target="_blank" rel="noopener">Tumblr</a>
+          <a href="https://bsky.app/profile/akanori.bsky.social" target="_blank" rel="noopener">Bluesky</a>
+        </div>
+        <p class="footer-copy">© 2026 Akanori. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const toggle = document.querySelector('[data-theme-toggle]');
+      const html = document.documentElement;
+      let theme = 'dark';
+      html.setAttribute('data-theme', theme);
+      function updateIcon() {
+        if (!toggle) return;
+        toggle.innerHTML = theme === 'dark'
+          ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+          : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+        toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
+      }
+      updateIcon();
+      toggle && toggle.addEventListener('click', () => {
+        theme = theme === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', theme);
+        updateIcon();
+      });
+    })();
+    (function() {
+      const header = document.getElementById('site-header');
+      window.addEventListener('scroll', () => {
+        header.classList.toggle('site-header--scrolled', window.scrollY > 10);
+      }, { passive: true });
+    })();
+    (function() {
+      const btn = document.getElementById('nav-hamburger');
+      const links = document.getElementById('nav-links');
+      if (!btn || !links) return;
+      btn.addEventListener('click', () => { const open = links.classList.toggle('open'); btn.setAttribute('aria-expanded', open); });
+    })();
+    (function() {
+      const els = document.querySelectorAll('.fade-up');
+      if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('visible')); return; }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      els.forEach(el => io.observe(el));
+    })();
+  </script>
+
+<script data-pplx-inline-edit>
+(function(){
+  if(window===window.top)return;
+  function inlineAll(orig,clone){
+    if(orig.nodeType!==1)return;
+    try{
+      var cs=getComputedStyle(orig);
+      var t='';
+      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
+      clone.style.cssText=t;
+    }catch(e){}
+    var oc=orig.children,cc=clone.children;
+    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
+  }
+  function stripExternal(clone){
+    var imgs=clone.querySelectorAll('img');
+    for(var i=0;i<imgs.length;i++){
+      var s=imgs[i].getAttribute('src');
+      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
+    }
+    var all=clone.querySelectorAll('*');
+    for(var i=0;i<all.length;i++){
+      var st=all[i].style.cssText;
+      if(st&&st.indexOf('url(')>=0){
+        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
+      }
+    }
+  }
+  window.addEventListener('message',function(e){
+    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
+    var scrollX=window.scrollX||window.pageXOffset||0;
+    var scrollY=window.scrollY||window.pageYOffset||0;
+    var w=window.innerWidth,h=window.innerHeight;
+    try{
+      var clone=document.documentElement.cloneNode(true);
+      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
+      for(var i=0;i<rm.length;i++){rm[i].remove();}
+      inlineAll(document.documentElement,clone);
+      stripExternal(clone);
+      var html=new XMLSerializer().serializeToString(clone);
+      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+        +'<foreignObject width="100%" height="100%">'
+        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
+        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
+        +html+'</div></div></foreignObject></svg>';
+      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+      var img=new Image();
+      img.onload=function(){
+        var c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0);
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.onerror=function(){
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.src=svgUrl;
+    }catch(err){
+      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+    }
+  });
+})();
+</script></body>
+</html>
