@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal — Akanori</title>
+  <meta name="description" content="Personal preferences, favourites, and things Akanori loves (and doesn't) — books, movies, quotes, and more.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <style>
+    /* ── Page-specific layout ─────────────────────────── */
+    .prefs-hero {
+      position: relative;
+      padding: var(--space-32) 0 var(--space-20);
+      text-align: center;
+      overflow: hidden;
+    }
+    .prefs-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        -55deg,
+        transparent,
+        transparent 40px,
+        rgba(139,26,26,0.03) 40px,
+        rgba(139,26,26,0.03) 41px
+      );
+      pointer-events: none;
+    }
+    .prefs-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 50% 30%, rgba(100,10,10,0.22), transparent 70%);
+      pointer-events: none;
+    }
+    .prefs-hero .container { position: relative; z-index: 1; }
+
+    /* ── Grid of preference panels ───────────────────── */
+    .prefs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-6);
+      margin-top: var(--space-12);
+    }
+
+    /* ── Individual panel card ───────────────────────── */
+    .pref-panel {
+      position: relative;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      padding: var(--space-12) var(--space-10);
+      overflow: hidden;
+    }
+    /* L-corner brackets */
+    .pref-panel::before,
+    .pref-panel::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+    }
+    .pref-panel::before {
+      top: 12px; left: 12px;
+      border-top: 1.5px solid var(--color-primary);
+      border-left: 1.5px solid var(--color-primary);
+    }
+    .pref-panel::after {
+      bottom: 12px; right: 12px;
+      border-bottom: 1.5px solid var(--color-primary);
+      border-right: 1.5px solid var(--color-primary);
+    }
+    /* Red top accent bar */
+    .pref-panel-accent {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--color-primary);
+      opacity: 0.7;
+    }
+
+    .pref-panel-eyebrow {
+      font-family: 'Cinzel', serif;
+      font-size: var(--text-xs);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-gold, #b8860b);
+      margin-bottom: var(--space-3);
+    }
+    .pref-panel-title {
+      font-family: 'Cinzel', serif;
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-5);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── List items inside a panel ───────────────────── */
+    .pref-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .pref-list li {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+    .pref-list li::before {
+      content: '';
+      flex-shrink: 0;
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      background: var(--color-primary);
+      transform: rotate(45deg);
+      margin-top: 0.35em;
+    }
+    .pref-list--dislikes li::before {
+      background: #4a2020;
+    }
+
+    /* ── Quote panel special layout ──────────────────── */
+    .pref-quote {
+      grid-column: 1 / -1;
+    }
+    blockquote.limbus-quote {
+      margin: 0;
+      padding: var(--space-6) var(--space-8);
+      border-left: 3px solid var(--color-primary);
+      background: rgba(139,26,26,0.06);
+      position: relative;
+    }
+    blockquote.limbus-quote p {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-style: normal;
+      font-weight: 400;
+      color: var(--color-text);
+      letter-spacing: 0.03em;
+      line-height: 1.75;
+      margin: 0 0 var(--space-3);
+    }
+    blockquote.limbus-quote cite {
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--text-xs);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-faint);
+      font-style: normal;
+    }
+
+    /* ── Wide single-column panel ────────────────────── */
+    .pref-panel--wide {
+      grid-column: 1 / -1;
+    }
+
+    /* ── Inline tag chips ────────────────────────────── */
+    .pref-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-2);
+    }
+
+    /* ── Section separator ───────────────────────────── */
+    .prefs-sep {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin: var(--space-16) 0 var(--space-4);
+    }
+    .prefs-sep::before,
+    .prefs-sep::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--color-border);
+    }
+    .prefs-sep-label {
+      font-family: 'Cinzel', serif;
+      font-size: var(--text-xs);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-text-faint);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header" id="site-header">
+    <div class="container">
+      <nav class="nav">
+        <a href="index.html" class="nav-logo" aria-label="Akanori — Home">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M16 2 L28 9 L28 23 L16 30 L4 23 L4 9 Z" stroke="currentColor" stroke-width="1" opacity="0.4" fill="none"/>
+            <path d="M16 9 L21 23 L16 20.5 L11 23 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" opacity="0.9"/>
+            <line x1="13" y1="18" x2="19" y2="18" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+            <path d="M4 9 L7 9 M4 9 L4 12" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <path d="M28 9 L25 9 M28 9 L28 12" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+          </svg>
+          <span class="nav-logo-text">Akanori</span>
+        </a>
+
+        <ul class="nav-links" id="nav-links" role="list">
+          <li><a href="index.html">Portfolio</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#socials">Find me</a></li>
+          <li><a href="commissions.html">Commissions</a></li>
+          <li><a href="about-me.html" class="active" style="white-space:nowrap;">Personal</a></li>
+          <li><a href="oc.html" style="white-space:nowrap;">OC Files</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="btn-theme" data-theme-toggle aria-label="Switch to light mode">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+          <a href="commissions.html" class="btn-commissions">Commissions</a>
+          <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ====== HERO ====== -->
+    <section class="prefs-hero">
+      <div class="container">
+        <div class="fade-up">
+          <p class="section-eyebrow" style="justify-content:center;">Likes &amp; Dislikes</p>
+          <h1 class="section-title" style="font-size:clamp(2rem,5vw,3rem);margin-bottom:var(--space-5);">
+            <em>Personal</em>
+          </h1>
+          <p style="color:var(--color-text-muted);max-width:52ch;margin-inline:auto;line-height:1.8;font-size:var(--text-sm);">
+            A catalogue of things that make up who I am — from the books on my shelf to the things that quietly drive me up the wall.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== QUOTE ====== -->
+    <section class="section" style="padding-top:0;">
+      <div class="container">
+        <div class="prefs-sep fade-up">
+          <span class="prefs-sep-label">Favourite Quote</span>
+        </div>
+        <div class="fade-up">
+          <blockquote class="limbus-quote">
+            <p>"We are all made of stories, not atoms."</p>
+            <cite>— Muriel Rukeyser</cite>
+          </blockquote>
+        </div>
+
+        <!-- ====== LIKES / DISLIKES ====== -->
+        <div class="prefs-sep fade-up">
+          <span class="prefs-sep-label">The Good &amp; The Bad</span>
+        </div>
+
+        <div class="prefs-grid">
+
+          <!-- LIKES -->
+          <div class="pref-panel fade-up">
+            <div class="pref-panel-accent"></div>
+            <p class="pref-panel-eyebrow">Things I love</p>
+            <h2 class="pref-panel-title">Likes</h2>
+            <ul class="pref-list">
+              <li>Character-driven stories and deep lore</li>
+              <li>Anime &amp; manga (especially dark fantasy)</li>
+              <li>Rainy days with a good playlist</li>
+              <li>Games with rich worldbuilding</li>
+              <li>Cafés and the smell of coffee</li>
+              <li>Detailed character designs and costume art</li>
+              <li>Late-night drawing sessions</li>
+              <li>Unexpected found-family dynamics in fiction</li>
+              <li>Horror aesthetics done tastefully</li>
+              <li>Handwritten notes and journaling</li>
+            </ul>
+          </div>
+
+          <!-- DISLIKES -->
+          <div class="pref-panel fade-up">
+            <div class="pref-panel-accent" style="background:#4a2020;"></div>
+            <p class="pref-panel-eyebrow" style="color:var(--color-text-faint);">Things I don't like</p>
+            <h2 class="pref-panel-title">Dislikes</h2>
+            <ul class="pref-list pref-list--dislikes">
+              <li>Loud, crowded places with no escape route</li>
+              <li>Stories that sacrifice character for spectacle</li>
+              <li>Unsolicited criticism of personal tastes</li>
+              <li>Slow internet during a render</li>
+              <li>Jumpscares for no reason</li>
+              <li>Art theft and uncredited reposting</li>
+              <li>Being interrupted mid-thought</li>
+              <li>Aggressive or pushy people</li>
+              <li>Bland colour palettes (why)</li>
+              <li>Humidity</li>
+            </ul>
+          </div>
+
+          <!-- FAVOURITE BOOK -->
+          <div class="pref-panel fade-up">
+            <div class="pref-panel-accent"></div>
+            <p class="pref-panel-eyebrow">Reading</p>
+            <h2 class="pref-panel-title">Favourite Book</h2>
+            <ul class="pref-list">
+              <li><strong style="color:var(--color-text);">The Name of the Wind</strong> by Patrick Rothfuss — for the prose alone</li>
+              <li>Anything with unreliable narrators and intricate magic systems</li>
+              <li>Light novel adaptations of games I love</li>
+            </ul>
+            <div class="pref-tags" style="margin-top:var(--space-5);">
+              <span class="tag">Fantasy</span>
+              <span class="tag">Dark Fiction</span>
+              <span class="tag">Light Novels</span>
+            </div>
+          </div>
+
+          <!-- FAVOURITE MOVIE -->
+          <div class="pref-panel fade-up">
+            <div class="pref-panel-accent"></div>
+            <p class="pref-panel-eyebrow">Watching</p>
+            <h2 class="pref-panel-title">Favourite Movie</h2>
+            <ul class="pref-list">
+              <li><strong style="color:var(--color-text);">Perfect Blue</strong> (1997) — still haunts me</li>
+              <li>Animated films in general, especially Satoshi Kon &amp; Mamoru Hosoda</li>
+              <li>Slow-burn psychological thrillers</li>
+            </ul>
+            <div class="pref-tags" style="margin-top:var(--space-5);">
+              <span class="tag">Animation</span>
+              <span class="tag">Psychological</span>
+              <span class="tag">Thriller</span>
+            </div>
+          </div>
+
+          <!-- MUSIC -->
+          <div class="pref-panel fade-up">
+            <div class="pref-panel-accent"></div>
+            <p class="pref-panel-eyebrow">Listening</p>
+            <h2 class="pref-panel-title">Music</h2>
+            <ul class="pref-list">
+              <li>Lo-fi, city pop, and ambient soundscapes while drawing</li>
+              <li>Game OSTs on repeat (Limbus Company, Nier, FGO)</li>
+              <li>J-rock and visual kei for when I want drama</li>
+              <li>The occasional nostalgic vocaloid deep cut</li>
+            </ul>
+          </div>
+
+          <!-- GAMES -->
+          <div class="pref-panel fade-up">
+            <div class="pref-panel-accent"></div>
+            <p class="pref-panel-eyebrow">Playing</p>
+            <h2 class="pref-panel-title">Favourite Games</h2>
+            <ul class="pref-list">
+              <li><strong style="color:var(--color-text);">Limbus Company</strong> — obsessed, send help</li>
+              <li>Lobotomy Corporation / Library of Ruina</li>
+              <li>Nier: Automata</li>
+              <li>Fate / Grand Order</li>
+              <li>Story-heavy RPGs in general</li>
+            </ul>
+          </div>
+
+          <!-- AESTHETICS -->
+          <div class="pref-panel fade-up">
+            <div class="pref-panel-accent"></div>
+            <p class="pref-panel-eyebrow">Visual</p>
+            <h2 class="pref-panel-title">Aesthetic Loves</h2>
+            <ul class="pref-list">
+              <li>Gothic and dark academia visuals</li>
+              <li>Intricate armour and costume design in art</li>
+              <li>Warm candlelight and deep shadow contrast</li>
+              <li>Aged paper textures and manuscript motifs</li>
+              <li>Red and black as a colour combo (obviously)</li>
+              <li>Characters with visible wear and damage</li>
+            </ul>
+          </div>
+
+          <!-- FOOD & DRINK -->
+          <div class="pref-panel fade-up">
+            <div class="pref-panel-accent"></div>
+            <p class="pref-panel-eyebrow">Taste</p>
+            <h2 class="pref-panel-title">Food &amp; Drink</h2>
+            <ul class="pref-list">
+              <li>Coffee (dark roast, no sugar)</li>
+              <li>Anything spicy or deeply savoury</li>
+              <li>Ramen at odd hours of the night</li>
+              <li>Boba, every flavour</li>
+            </ul>
+            <ul class="pref-list pref-list--dislikes" style="margin-top:var(--space-3);">
+              <li>Bell peppers (non-negotiable)</li>
+              <li>Extremely sweet desserts</li>
+            </ul>
+          </div>
+
+        </div><!-- /prefs-grid -->
+
+        <!-- ====== MISC / FUN FACTS ====== -->
+        <div class="prefs-sep fade-up">
+          <span class="prefs-sep-label">Quick Facts</span>
+        </div>
+
+        <div class="pref-panel pref-panel--wide fade-up">
+          <div class="pref-panel-accent"></div>
+          <p class="pref-panel-eyebrow">At a glance</p>
+          <h2 class="pref-panel-title">Misc. Things About Me</h2>
+          <ul class="pref-list" style="columns:2;column-gap:var(--space-12);">
+            <li>Night owl — most art happens after midnight</li>
+            <li>Left-handed, but uses a stylus with my right</li>
+            <li>Has strong opinions on font choices</li>
+            <li>Cannot watch horror alone but does it anyway</li>
+            <li>Collects character merch that doesn't fit on the shelf</li>
+            <li>Uses too many layers in Clip Studio</li>
+            <li>Starts too many OC stories, finishes some of them</li>
+            <li>Deeply loyal to fictional characters, at a cost</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="index.html" class="footer-logo">Akanori</a>
+        <div class="footer-links">
+          <a href="index.html">Portfolio</a>
+          <a href="about-me.html">Personal</a>
+          <a href="commissions.html">Commissions</a>
+          <a href="https://www.instagram.com/akanori.art/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tumblr.com/blog/akanorired" target="_blank" rel="noopener">Tumblr</a>
+          <a href="https://bsky.app/profile/akanori.bsky.social" target="_blank" rel="noopener">Bluesky</a>
+        </div>
+        <p class="footer-copy">© 2026 Akanori. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const toggle = document.querySelector('[data-theme-toggle]');
+      const html = document.documentElement;
+      let theme = 'dark';
+      html.setAttribute('data-theme', theme);
+      function updateIcon() {
+        if (!toggle) return;
+        toggle.innerHTML = theme === 'dark'
+          ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+          : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+        toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
+      }
+      updateIcon();
+      toggle && toggle.addEventListener('click', () => {
+        theme = theme === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', theme);
+        updateIcon();
+      });
+    })();
+
+    (function() {
+      const header = document.getElementById('site-header');
+      window.addEventListener('scroll', () => {
+        header.classList.toggle('site-header--scrolled', window.scrollY > 10);
+      }, { passive: true });
+    })();
+
+    (function() {
+      const btn = document.getElementById('nav-hamburger');
+      const links = document.getElementById('nav-links');
+      if (!btn || !links) return;
+      btn.addEventListener('click', () => {
+        const open = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open);
+      });
+    })();
+
+    (function() {
+      const els = document.querySelectorAll('.fade-up');
+      if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('visible')); return; }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      els.forEach(el => io.observe(el));
+    })();
+  </script>
+<script data-pplx-inline-edit>
+(function(){
+  if(window===window.top)return;
+  function inlineAll(orig,clone){
+    if(orig.nodeType!==1)return;
+    try{
+      var cs=getComputedStyle(orig);
+      var t='';
+      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
+      clone.style.cssText=t;
+    }catch(e){}
+    var oc=orig.children,cc=clone.children;
+    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
+  }
+  function stripExternal(clone){
+    var imgs=clone.querySelectorAll('img');
+    for(var i=0;i<imgs.length;i++){
+      var s=imgs[i].getAttribute('src');
+      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
+    }
+    var all=clone.querySelectorAll('*');
+    for(var i=0;i<all.length;i++){
+      var st=all[i].style.cssText;
+      if(st&&st.indexOf('url(')>=0){
+        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
+      }
+    }
+  }
+  window.addEventListener('message',function(e){
+    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
+    var scrollX=window.scrollX||window.pageXOffset||0;
+    var scrollY=window.scrollY||window.pageYOffset||0;
+    var w=window.innerWidth,h=window.innerHeight;
+    try{
+      var clone=document.documentElement.cloneNode(true);
+      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
+      for(var i=0;i<rm.length;i++){rm[i].remove();}
+      inlineAll(document.documentElement,clone);
+      stripExternal(clone);
+      var html=new XMLSerializer().serializeToString(clone);
+      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+        +'<foreignObject width="100%" height="100%">'
+        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
+        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
+        +html+'</div></div></foreignObject></svg>';
+      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+      var img=new Image();
+      img.onload=function(){
+        var c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0);
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.onerror=function(){
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.src=svgUrl;
+    }catch(err){
+      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+    }
+  });
+})();
+</script></body>
+</html>

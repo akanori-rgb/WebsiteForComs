@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Original Characters — Akanori</title>
+  <meta name="description" content="Akanori's original characters — sinner files, lore blurbs, and character art.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <style>
+
+    /* ════════════════════════════════════════════════
+       PAGE HERO
+    ════════════════════════════════════════════════ */
+    .oc-hero {
+      position: relative;
+      padding: var(--space-32) 0 var(--space-16);
+      text-align: center;
+      overflow: hidden;
+    }
+    .oc-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: repeating-linear-gradient(
+        -55deg, transparent, transparent 40px,
+        rgba(139,26,26,0.04) 40px, rgba(139,26,26,0.04) 41px
+      );
+      pointer-events: none;
+    }
+    .oc-hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 80% at 50% 20%, rgba(120,10,10,0.28), transparent 70%);
+      pointer-events: none;
+    }
+    .oc-hero .container { position: relative; z-index: 1; }
+
+    /* ════════════════════════════════════════════════
+       CARD GRID
+    ════════════════════════════════════════════════ */
+    .oc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-8);
+      margin-top: var(--space-12);
+    }
+
+    /* ════════════════════════════════════════════════
+       ID CARD — outer shell
+    ════════════════════════════════════════════════ */
+    .id-card {
+      position: relative;
+      background: var(--color-surface);
+      border: 1px solid #2e1414;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .id-card:hover {
+      border-color: #8b1a1a;
+      box-shadow: 0 0 0 1px rgba(139,26,26,0.25),
+                  0 12px 40px rgba(0,0,0,0.5);
+    }
+
+    /* Top red identification stripe */
+    .id-card-stripe {
+      height: 3px;
+      background: linear-gradient(to right, #8b1a1a, #c0392b 40%, #8b1a1a);
+    }
+
+    /* Corner bracket — top-left */
+    .id-card::before {
+      content: '';
+      position: absolute;
+      top: 14px; left: 14px;
+      width: 22px; height: 22px;
+      border-top: 1.5px solid #8b1a1a;
+      border-left: 1.5px solid #8b1a1a;
+      pointer-events: none;
+      z-index: 4;
+    }
+    /* Corner bracket — bottom-right */
+    .id-card::after {
+      content: '';
+      position: absolute;
+      bottom: 14px; right: 14px;
+      width: 22px; height: 22px;
+      border-bottom: 1.5px solid #8b1a1a;
+      border-right: 1.5px solid #8b1a1a;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    /* ── Art slot ─────────────────────────────────── */
+    .id-card-art {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      background: #0d0606;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* Hatch texture inside art slot */
+    .id-card-art::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        repeating-linear-gradient(-45deg,
+          transparent, transparent 18px,
+          rgba(139,26,26,0.035) 18px, rgba(139,26,26,0.035) 19px);
+      z-index: 1;
+    }
+
+    /* Placeholder graphic */
+    .id-card-art-placeholder {
+      position: absolute; inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--space-3);
+      z-index: 2;
+    }
+    .id-card-art-placeholder svg {
+      opacity: 0.18;
+    }
+    .id-card-art-placeholder span {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #4a2020;
+    }
+
+    /* "No. XXX" stamp — top-right of art */
+    .id-card-number {
+      position: absolute;
+      top: 10px; right: 14px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      color: #4a2020;
+      z-index: 3;
+      text-transform: uppercase;
+    }
+
+    /* Scanline vignette overlay */
+    .id-card-art::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(10,8,8,0.45) 0%,
+        transparent 30%,
+        transparent 65%,
+        rgba(10,8,8,0.7) 100%
+      );
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* ── Body area ────────────────────────────────── */
+    .id-card-body {
+      position: relative;
+      padding: var(--space-8) var(--space-9) var(--space-10);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+      background: var(--color-surface);
+    }
+
+    /* Thin rule separating art from body */
+    .id-card-rule {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #3a1818 30%, #3a1818 70%, transparent);
+      margin: 0;
+      border: none;
+    }
+
+    /* Header row: name + class badge */
+    .id-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+    .id-card-name {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: 0.06em;
+      line-height: 1.2;
+    }
+    .id-card-class {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #d4a017;
+      background: rgba(180,130,0,0.1);
+      border: 1px solid rgba(180,130,0,0.25);
+      padding: 3px 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Stat row */
+    .id-card-stats {
+      display: flex;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .id-card-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .id-card-stat-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #4a3d35;
+    }
+    .id-card-stat-value {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: #8b1a1a;
+    }
+
+    /* Divider between stats and lore */
+    .id-card-lore-sep {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, #2e1414, transparent);
+      border: none;
+      margin: 0;
+    }
+
+    /* Lore blurb */
+    .id-card-lore {
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.75;
+    }
+
+    /* "Classified" redaction bar (optional flavour element) */
+    .id-card-redact {
+      display: inline-block;
+      background: #1e0c0c;
+      color: transparent;
+      user-select: none;
+      font-size: var(--text-sm);
+      line-height: 1;
+      border-radius: 1px;
+      height: 1em;
+      width: 6ch;
+      vertical-align: middle;
+    }
+
+    /* File status strip at bottom */
+    .id-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-4) var(--space-8);
+      background: rgba(10,8,8,0.6);
+      border-top: 1px solid #1e0c0c;
+    }
+    .id-card-footer-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #3a2020;
+    }
+    .id-card-footer-status {
+      font-family: 'Cinzel', serif;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8b1a1a;
+    }
+
+    /* ── SVG crosshair inside placeholder ─────────── */
+    .art-crosshair {
+      pointer-events: none;
+    }
+
+    /* ════════════════════════════════════════════════
+       SECTION SEPARATOR (reused from about-me style)
+    ════════════════════════════════════════════════ */
+    .oc-sep {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin: var(--space-6) 0 0;
+    }
+    .oc-sep::before, .oc-sep::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--color-border);
+    }
+    .oc-sep-label {
+      font-family: 'Cinzel', serif;
+      font-size: var(--text-xs);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-text-faint);
+      white-space: nowrap;
+    }
+
+    /* ════════════════════════════════════════════════
+       NOTICE BANNER
+    ════════════════════════════════════════════════ */
+    .oc-notice {
+      border: 1px solid #2e1414;
+      border-left: 3px solid #8b1a1a;
+      background: rgba(139,26,26,0.06);
+      padding: var(--space-4) var(--space-6);
+      font-family: 'DM Sans', sans-serif;
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+      letter-spacing: 0.06em;
+      margin-top: var(--space-8);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="site-header" id="site-header">
+    <div class="container">
+      <nav class="nav">
+        <a href="index.html" class="nav-logo" aria-label="Akanori — Home">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path d="M16 2 L28 9 L28 23 L16 30 L4 23 L4 9 Z" stroke="currentColor" stroke-width="1" opacity="0.4" fill="none"/>
+            <path d="M16 9 L21 23 L16 20.5 L11 23 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" opacity="0.9"/>
+            <line x1="13" y1="18" x2="19" y2="18" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+            <path d="M4 9 L7 9 M4 9 L4 12" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <path d="M28 9 L25 9 M28 9 L28 12" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+          </svg>
+          <span class="nav-logo-text">Akanori</span>
+        </a>
+
+        <ul class="nav-links" id="nav-links" role="list">
+          <li><a href="index.html">Portfolio</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#socials">Find me</a></li>
+          <li><a href="commissions.html">Commissions</a></li>
+          <li><a href="about-me.html" style="white-space:nowrap;">Personal</a></li>
+          <li><a href="oc.html" class="active" style="white-space:nowrap;">OC Files</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="btn-theme" data-theme-toggle aria-label="Switch to light mode">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+          <a href="commissions.html" class="btn-commissions">Commissions</a>
+          <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ====== HERO ====== -->
+    <section class="oc-hero">
+      <div class="container">
+        <div class="fade-up">
+          <p class="section-eyebrow" style="justify-content:center;">Sinner Registry</p>
+          <h1 class="section-title" style="font-size:clamp(2rem,5vw,3rem);margin-bottom:var(--space-5);">
+            OC <em>Files</em>
+          </h1>
+          <p style="color:var(--color-text-muted);max-width:52ch;margin-inline:auto;line-height:1.8;font-size:var(--text-sm);">
+            Personnel dossiers on every original character in my care. Each file contains a partial record — full details remain classified pending clearance.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== CARD GRID ====== -->
+    <section class="section" style="padding-top:0;">
+      <div class="container container--wide">
+
+        <div class="oc-sep fade-up">
+          <span class="oc-sep-label">Active Files</span>
+        </div>
+
+        <div class="oc-grid">
+
+          <!-- ── CARD 1 ───────────────────────────── -->
+          <article class="id-card fade-up">
+            <div class="id-card-stripe"></div>
+
+            <div class="id-card-art">
+              <span class="id-card-number">No. 001</span>
+              <div class="id-card-art-placeholder">
+                <!-- Limbus-style crosshair emblem -->
+                <svg class="art-crosshair" width="80" height="80" viewBox="0 0 80 80" fill="none">
+                  <circle cx="40" cy="40" r="36" stroke="#8b1a1a" stroke-width="0.8"/>
+                  <circle cx="40" cy="40" r="28" stroke="#4a2020" stroke-width="0.6"/>
+                  <circle cx="40" cy="40" r="16" stroke="#4a2020" stroke-width="0.6"/>
+                  <line x1="40" y1="4" x2="40" y2="76" stroke="#4a2020" stroke-width="0.5"/>
+                  <line x1="4" y1="40" x2="76" y2="40" stroke="#4a2020" stroke-width="0.5"/>
+                  <line x1="19" y1="19" x2="61" y2="61" stroke="#4a2020" stroke-width="0.4" opacity="0.5"/>
+                  <line x1="61" y1="19" x2="19" y2="61" stroke="#4a2020" stroke-width="0.4" opacity="0.5"/>
+                  <circle cx="40" cy="12" r="2.5" fill="#8b1a1a"/>
+                  <circle cx="40" cy="68" r="2.5" fill="#8b1a1a"/>
+                  <circle cx="12" cy="40" r="2.5" fill="#8b1a1a"/>
+                  <circle cx="68" cy="40" r="2.5" fill="#8b1a1a"/>
+                  <path d="M40 33 L47 40 L40 47 L33 40 Z" stroke="#c0392b" stroke-width="1" fill="none"/>
+                  <circle cx="40" cy="40" r="3" fill="#8b1a1a"/>
+                </svg>
+                <span>Art Pending</span>
+              </div>
+            </div>
+
+            <hr class="id-card-rule">
+
+            <div class="id-card-body">
+              <div class="id-card-header">
+                <div class="id-card-name">[ Character Name ]</div>
+                <div class="id-card-class">Sinner</div>
+              </div>
+
+              <div class="id-card-stats">
+                <div class="id-card-stat">
+                  <span class="id-card-stat-label">Origin</span>
+                  <span class="id-card-stat-value">Unknown</span>
+                </div>
+                <div class="id-card-stat">
+                  <span class="id-card-stat-label">Affiliation</span>
+                  <span class="id-card-stat-value">—</span>
+                </div>
+                <div class="id-card-stat">
+                  <span class="id-card-stat-label">Status</span>
+                  <span class="id-card-stat-value">Active</span>
+                </div>
+              </div>
+
+              <hr class="id-card-lore-sep">
+
+              <p class="id-card-lore">
+                Lore blurb goes here. A brief dossier entry — motivations, history, and what makes this character worth watching. Details marked <span class="id-card-redact">REDACT</span> remain on file.
+              </p>
+            </div>
+
+            <div class="id-card-footer">
+              <span class="id-card-footer-label">Limbus Co. Personnel File</span>
+              <span class="id-card-footer-status">Clearance: Open</span>
+            </div>
+          </article>
+
+          <!-- ── CARD 2 ───────────────────────────── -->
+          <article class="id-card fade-up">
+            <div class="id-card-stripe"></div>
+
+            <div class="id-card-art">
+              <span class="id-card-number">No. 002</span>
+              <div class="id-card-art-placeholder">
+                <svg class="art-crosshair" width="80" height="80" viewBox="0 0 80 80" fill="none">
+                  <circle cx="40" cy="40" r="36" stroke="#8b1a1a" stroke-width="0.8"/>
+                  <circle cx="40" cy="40" r="28" stroke="#4a2020" stroke-width="0.6"/>
+                  <circle cx="40" cy="40" r="16" stroke="#4a2020" stroke-width="0.6"/>
+                  <line x1="40" y1="4" x2="40" y2="76" stroke="#4a2020" stroke-width="0.5"/>
+                  <line x1="4" y1="40" x2="76" y2="40" stroke="#4a2020" stroke-width="0.5"/>
+                  <line x1="19" y1="19" x2="61" y2="61" stroke="#4a2020" stroke-width="0.4" opacity="0.5"/>
+                  <line x1="61" y1="19" x2="19" y2="61" stroke="#4a2020" stroke-width="0.4" opacity="0.5"/>
+                  <circle cx="40" cy="12" r="2.5" fill="#8b1a1a"/>
+                  <circle cx="40" cy="68" r="2.5" fill="#8b1a1a"/>
+                  <circle cx="12" cy="40" r="2.5" fill="#8b1a1a"/>
+                  <circle cx="68" cy="40" r="2.5" fill="#8b1a1a"/>
+                  <path d="M40 33 L47 40 L40 47 L33 40 Z" stroke="#c0392b" stroke-width="1" fill="none"/>
+                  <circle cx="40" cy="40" r="3" fill="#8b1a1a"/>
+                </svg>
+                <span>Art Pending</span>
+              </div>
+            </div>
+
+            <hr class="id-card-rule">
+
+            <div class="id-card-body">
+              <div class="id-card-header">
+                <div class="id-card-name">[ Character Name ]</div>
+                <div class="id-card-class">Sinner</div>
+              </div>
+
+              <div class="id-card-stats">
+                <div class="id-card-stat">
+                  <span class="id-card-stat-label">Origin</span>
+                  <span class="id-card-stat-value">Unknown</span>
+                </div>
+                <div class="id-card-stat">
+                  <span class="id-card-stat-label">Affiliation</span>
+                  <span class="id-card-stat-value">—</span>
+                </div>
+                <div class="id-card-stat">
+                  <span class="id-card-stat-label">Status</span>
+                  <span class="id-card-stat-value">Active</span>
+                </div>
+              </div>
+
+              <hr class="id-card-lore-sep">
+
+              <p class="id-card-lore">
+                Lore blurb goes here. A brief dossier entry — motivations, history, and what makes this character worth watching. Details marked <span class="id-card-redact">REDACT</span> remain on file.
+              </p>
+            </div>
+
+            <div class="id-card-footer">
+              <span class="id-card-footer-label">Limbus Co. Personnel File</span>
+              <span class="id-card-footer-status">Clearance: Open</span>
+            </div>
+          </article>
+
+          <!-- ── CARD 3 ───────────────────────────── -->
+          <article class="id-card fade-up">
+            <div class="id-card-stripe"></div>
+
+            <div class="id-card-art">
+              <span class="id-card-number">No. 003</span>
+              <div class="id-card-art-placeholder">
+                <svg class="art-crosshair" width="80" height="80" viewBox="0 0 80 80" fill="none">
+                  <circle cx="40" cy="40" r="36" stroke="#8b1a1a" stroke-width="0.8"/>
+                  <circle cx="40" cy="40" r="28" stroke="#4a2020" stroke-width="0.6"/>
+                  <circle cx="40" cy="40" r="16" stroke="#4a2020" stroke-width="0.6"/>
+                  <line x1="40" y1="4" x2="40" y2="76" stroke="#4a2020" stroke-width="0.5"/>
+                  <line x1="4" y1="40" x2="76" y2="40" stroke="#4a2020" stroke-width="0.5"/>
+                  <line x1="19" y1="19" x2="61" y2="61" stroke="#4a2020" stroke-width="0.4" opacity="0.5"/>
+                  <line x1="61" y1="19" x2="19" y2="61" stroke="#4a2020" stroke-width="0.4" opacity="0.5"/>
+                  <circle cx="40" cy="12" r="2.5" fill="#8b1a1a"/>
+                  <circle cx="40" cy="68" r="2.5" fill="#8b1a1a"/>
+                  <circle cx="12" cy="40" r="2.5" fill="#8b1a1a"/>
+                  <circle cx="68" cy="40" r="2.5" fill="#8b1a1a"/>
+                  <path d="M40 33 L47 40 L40 47 L33 40 Z" stroke="#c0392b" stroke-width="1" fill="none"/>
+                  <circle cx="40" cy="40" r="3" fill="#8b1a1a"/>
+                </svg>
+                <span>Art Pending</span>
+              </div>
+            </div>
+
+            <hr class="id-card-rule">
+
+            <div class="id-card-body">
+              <div class="id-card-header">
+                <div class="id-card-name">[ Character Name ]</div>
+                <div class="id-card-class">Sinner</div>
+              </div>
+
+              <div class="id-card-stats">
+                <div class="id-card-stat">
+                  <span class="id-card-stat-label">Origin</span>
+                  <span class="id-card-stat-value">Unknown</span>
+                </div>
+                <div class="id-card-stat">
+                  <span class="id-card-stat-label">Affiliation</span>
+                  <span class="id-card-stat-value">—</span>
+                </div>
+                <div class="id-card-stat">
+                  <span class="id-card-stat-label">Status</span>
+                  <span class="id-card-stat-value">Active</span>
+                </div>
+              </div>
+
+              <hr class="id-card-lore-sep">
+
+              <p class="id-card-lore">
+                Lore blurb goes here. A brief dossier entry — motivations, history, and what makes this character worth watching. Details marked <span class="id-card-redact">REDACT</span> remain on file.
+              </p>
+            </div>
+
+            <div class="id-card-footer">
+              <span class="id-card-footer-label">Limbus Co. Personnel File</span>
+              <span class="id-card-footer-status">Clearance: Open</span>
+            </div>
+          </article>
+
+        </div><!-- /oc-grid -->
+
+        <!-- Notice -->
+        <p class="oc-notice fade-up">
+          Files are updated as characters are developed. Names, lore, and art slots are placeholders — replace them with your actual OC data as needed. New cards can be added by duplicating any <code style="font-family:monospace;font-size:0.85em;color:#8b1a1a;">&lt;article class="id-card"&gt;</code> block.
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <a href="index.html" class="footer-logo">Akanori</a>
+        <div class="footer-links">
+          <a href="index.html">Portfolio</a>
+          <a href="oc.html">OC Files</a>
+          <a href="commissions.html">Commissions</a>
+          <a href="https://www.instagram.com/akanori.art/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tumblr.com/blog/akanorired" target="_blank" rel="noopener">Tumblr</a>
+          <a href="https://bsky.app/profile/akanori.bsky.social" target="_blank" rel="noopener">Bluesky</a>
+        </div>
+        <p class="footer-copy">© 2026 Akanori. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const toggle = document.querySelector('[data-theme-toggle]');
+      const html = document.documentElement;
+      let theme = 'dark';
+      html.setAttribute('data-theme', theme);
+      function updateIcon() {
+        if (!toggle) return;
+        toggle.innerHTML = theme === 'dark'
+          ? '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+          : '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+        toggle.setAttribute('aria-label', 'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' mode');
+      }
+      updateIcon();
+      toggle && toggle.addEventListener('click', () => {
+        theme = theme === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', theme);
+        updateIcon();
+      });
+    })();
+
+    (function() {
+      const header = document.getElementById('site-header');
+      window.addEventListener('scroll', () => {
+        header.classList.toggle('site-header--scrolled', window.scrollY > 10);
+      }, { passive: true });
+    })();
+
+    (function() {
+      const btn = document.getElementById('nav-hamburger');
+      const links = document.getElementById('nav-links');
+      if (!btn || !links) return;
+      btn.addEventListener('click', () => {
+        const open = links.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open);
+      });
+    })();
+
+    (function() {
+      const els = document.querySelectorAll('.fade-up');
+      if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('visible')); return; }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      els.forEach(el => io.observe(el));
+    })();
+  </script>
+<script data-pplx-inline-edit>
+(function(){
+  if(window===window.top)return;
+  function inlineAll(orig,clone){
+    if(orig.nodeType!==1)return;
+    try{
+      var cs=getComputedStyle(orig);
+      var t='';
+      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
+      clone.style.cssText=t;
+    }catch(e){}
+    var oc=orig.children,cc=clone.children;
+    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
+  }
+  function stripExternal(clone){
+    var imgs=clone.querySelectorAll('img');
+    for(var i=0;i<imgs.length;i++){
+      var s=imgs[i].getAttribute('src');
+      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
+    }
+    var all=clone.querySelectorAll('*');
+    for(var i=0;i<all.length;i++){
+      var st=all[i].style.cssText;
+      if(st&&st.indexOf('url(')>=0){
+        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
+      }
+    }
+  }
+  window.addEventListener('message',function(e){
+    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
+    var scrollX=window.scrollX||window.pageXOffset||0;
+    var scrollY=window.scrollY||window.pageYOffset||0;
+    var w=window.innerWidth,h=window.innerHeight;
+    try{
+      var clone=document.documentElement.cloneNode(true);
+      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
+      for(var i=0;i<rm.length;i++){rm[i].remove();}
+      inlineAll(document.documentElement,clone);
+      stripExternal(clone);
+      var html=new XMLSerializer().serializeToString(clone);
+      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+        +'<foreignObject width="100%" height="100%">'
+        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
+        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
+        +html+'</div></div></foreignObject></svg>';
+      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+      var img=new Image();
+      img.onload=function(){
+        var c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0);
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.onerror=function(){
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.src=svgUrl;
+    }catch(err){
+      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+    }
+  });
+})();
+</script></body>
+</html>
